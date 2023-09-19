@@ -1,0 +1,30 @@
+version: "3"
+services:
+  emqx:
+    image: emqx/emqx:latest
+    container_name: emqx
+    ports:
+      - "1883:1883"
+      - "8083:8083"
+      - "8084:8084"
+      - "8883:8883"
+      - "18083:18083"
+  go-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.go-server
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./mqtt_data.sqlite:/data/mqtt_data.sqlite
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_INSTALL_PLUGINS=frser-sqlite-datasource
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/plugins:/var/lib/grafana/plugins
+      - ./mqtt_data.sqlite:/data/mqtt_data.sqlite
