@@ -4,16 +4,16 @@ Stash is a local IoT logging solution for the cannabis community. Utilizes Docke
 ## **Setup Guide**
 
 ### **Prerequisites:**
-- Docker installed on your machine.
-- Git installed on your machine.
+- [Docker](https://www.docker.com/) installed on your machine.
+- [Git](https://git-scm.com/) installed on your machine.
 
 ### **Steps:**
 
 1. **Clone the Repository**:  
    Open a terminal or command prompt and run:  
 ```
-git clone [YOUR_GITHUB_REPO_URL] HashyLogs
-cd HashyLogs
+git clone https://github.com/hashy-so/stash.git hashy-stash
+cd hashy-stash
 ```
 
 2. **Start the Services**:
