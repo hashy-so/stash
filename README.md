@@ -19,7 +19,7 @@ cd hashy-stash
 ./start.sh
 ```
 
-3. Access the [http://localhost:3000/?orgId=1](Grafana) in your browser to see your live data. Default credentials are `admin / admin`
+3. Access the [Grafana](http://localhost:3000/?orgId=1) in your browser to see your live data. Default credentials are `admin / admin`
 
 ---
 
