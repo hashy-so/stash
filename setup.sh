@@ -1,12 +1,36 @@
 #!/bin/bash
 
-# Check for the existence of mqtt_data.sqlite
-if [ ! -f ./mqtt_data.sqlite ]; then
-    touch ./mqtt_data.sqlite
-    echo "mqtt_data.sqlite file created."
+# Function to create SQLite file for macOS/Linux
+create_sqlite_unix() {
+    if [ ! -f ./mqtt_data.sqlite ]; then
+        touch ./mqtt_data.sqlite
+        echo "mqtt_data.sqlite file created."
+    else
+        echo "mqtt_data.sqlite file already exists."
+    fi
+}
+
+# Function to create SQLite file for Windows
+create_sqlite_windows() {
+    if not exist mqtt_data.sqlite (
+        echo Creating mqtt_data.sqlite file...
+        type nul > mqtt_data.sqlite
+    ) else (
+        echo mqtt_data.sqlite file already exists.
+    )
+}
+
+# Detect OS and execute the corresponding function
+if [[ "$OSTYPE" == "linux-gnu"* || "$OSTYPE" == "darwin"* ]]; then
+    # Linux or macOS
+    create_sqlite_unix
+elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
+    # Windows
+    create_sqlite_windows
 else
-    echo "mqtt_data.sqlite file already exists."
+    # Unknown OS
+    echo "Unknown OS detected. Please create mqtt_data.sqlite manually."
+    exit 1
 fi
 
-# Run docker-compose
 docker-compose up --build
